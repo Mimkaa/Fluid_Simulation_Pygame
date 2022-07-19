@@ -84,7 +84,7 @@ class Fluid:
         self.size = size
         self.cells = [Cell(self.index_2d(i)) for i in range(size * size)]
         self.viscosity = viscosity
-        self.cells_scale = 16
+        self.cells_scale = 32
         self.cells_images = [pg.Surface((self.cells_scale, self.cells_scale)) for i in range(size * size)]
 
     def add_density(self, x, y, amount):
@@ -153,7 +153,8 @@ class Fluid:
 
         # fade
         for cell in self.cells:
-            cell.density_prev *= 0.9
+            cell.density *= 0.993
+            cell.vel *= 0.993
 
         # previous_vals -> current vals
         for c in self.cells:

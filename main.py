@@ -45,7 +45,7 @@ class Game:
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
         self.fluid = Fluid(20, 0.00001)
-        self.angle = math.radians(-310)
+        self.angle = 0
 
     def run(self):
         # game loop - set self.playing = False to end the game
@@ -64,8 +64,8 @@ class Game:
         # update portion of the game loop
         self.all_sprites.update()
         self.fluid.add_density(9, 9, 1)
-        # self.angle += 0.01
-        scale = 50
+        self.angle += 0.01
+        scale = 25
         self.fluid.add_velocity(9, 9, (math.cos(self.angle) * scale, math.sin(self.angle) * scale))
         self.fluid.update(self.dt)
 
