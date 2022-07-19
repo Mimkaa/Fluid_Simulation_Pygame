@@ -194,5 +194,5 @@ class Fluid:
         for x in range(self.size):
             for y in range(self.size):
                 surf.blit(self.cells_images[self.index(x, y)], (x * self.cells_scale, y * self.cells_scale))
-        for c in self.cells:
-            pg.draw.line(surf, RED, c.pos * self.cells_scale, c.pos * self.cells_scale + c.vel_prev)
+        # for c in self.cells:
+        #     pg.draw.line(surf, RED, c.pos * self.cells_scale, c.pos * self.cells_scale + c.vel_prev)
