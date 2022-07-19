@@ -1,7 +1,9 @@
+import math
+
 import pygame as pg
 import sys
 from settings import *
-from objects import *
+from fluid_with_numba_2_0 import *
 from os import path
 class Game:
     def __init__(self):
@@ -43,7 +45,7 @@ class Game:
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
         self.fluid = Fluid(20, 0.00001)
-        self.angle = 0
+        self.angle = math.radians(-310)
 
     def run(self):
         # game loop - set self.playing = False to end the game
@@ -61,9 +63,9 @@ class Game:
     def update(self):
         # update portion of the game loop
         self.all_sprites.update()
-        self.fluid.add_density(9, 9, random.uniform(0,100))
-        self.angle += 0.1
-        scale = 250
+        self.fluid.add_density(9, 9, 1)
+        # self.angle += 0.01
+        scale = 50
         self.fluid.add_velocity(9, 9, (math.cos(self.angle) * scale, math.sin(self.angle) * scale))
         self.fluid.update(self.dt)
 

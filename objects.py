@@ -3,6 +3,7 @@ import random
 
 import pygame as pg
 import numpy as np
+from numba import njit
 from gaus_seidel import Gaus_Seidel
 from settings import *
 vec = pg.Vector2
@@ -105,6 +106,7 @@ class Fluid:
         # fade
         for cell in self.cells:
             cell.density_prev *= 0.9
+            cell.vel_prev *= 0.9
 
 
 
@@ -115,6 +117,7 @@ class Fluid:
 
     def index_2d(self, i):
         return (i % self.size, i // self.size)
+
 
     def diffuse(self, values_prev, values, k, iterations):
 
