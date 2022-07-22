@@ -1,9 +1,9 @@
 import math
-
 import pygame as pg
 import sys
 from settings import *
-from fluid_with_numba_2_0 import *
+from colorful_fluid import *
+from agent import Agent
 from os import path
 class Game:
     def __init__(self):
@@ -44,8 +44,12 @@ class Game:
     def new(self):
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
-        self.fluid = Fluid(20, 0.00001)
+        self.fluid = Fluid(30, 0.00001, (BLACK, PURPULISH1, PURPULISH2, PURPULISH3, PURPULISH_BODY2), 640)
         self.angle = 0
+        self.agent = Agent(self.fluid, (15, 15), (1, 1), math.pi/4, YELLOW)
+        self.agent1 = Agent(self.fluid, (18, 15), (1, 1), math.pi/4, BLUE)
+        self.agent2 = Agent(self.fluid, (15, 15), (1, 1), math.pi/4, RED)
+        self.agent3 = Agent(self.fluid, (12, 15), (1, 1), math.pi/4, GREEN)
 
     def run(self):
         # game loop - set self.playing = False to end the game
@@ -63,11 +67,17 @@ class Game:
     def update(self):
         # update portion of the game loop
         self.all_sprites.update()
-        self.fluid.add_density(9, 9, 1)
-        self.angle += 0.01
-        scale = 25
-        self.fluid.add_velocity(9, 9, (math.cos(self.angle) * scale, math.sin(self.angle) * scale))
+
+        params = (20, 1)
+        #self.agent.update(0.4, params[0], params[1], self.dt)
+        self.agent1.update(0.4, params[0], params[1], self.dt)
+        self.agent2.update(0.4, params[0], params[1], self.dt)
+        self.agent3.update(0.4, params[0], params[1], self.dt)
+
+
         self.fluid.update(self.dt)
+
+
 
 
     def draw_grid(self):
@@ -79,6 +89,10 @@ class Game:
     def draw(self):
         self.screen.fill(BGCOLOR)
         self.fluid.draw(self.screen)
+        # self.agent.draw(self.screen, 100)
+        # self.agent1.draw(self.screen, 100)
+        # self.agent2.draw(self.screen, 100)
+        # self.agent3.draw(self.screen, 100)
         # fps
         self.draw_text(str(int(self.clock.get_fps())), self.font, 40, WHITE, 50, 50, align="center")
         pg.display.flip()
